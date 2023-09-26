@@ -1,6 +1,6 @@
 from easydict import EasyDict
 
-collector_env_num = 2
+collector_env_num = 6
 evaluator_env_num = 2
 trading_position_r2d2_config = dict(
     exp_name='trading_position_r2d2_seed0',
