@@ -1,6 +1,6 @@
 from easydict import EasyDict
 
-collector_env_num = 8
+collector_env_num = 4
 evaluator_env_num = 2
 trading_position_r2d2_config = dict(
     exp_name='trading_position_r2d2_seed0',
@@ -16,7 +16,7 @@ trading_position_r2d2_config = dict(
         borrow_interest_rate=0.0003/100,
         portfolio_initial_value=1000,
         initial_position='random',
-        start_date='2023-01-02',
+        start_date='2019-01-01',
         end_date='2023-08-10',
         train_range=0.7,
         test_range=0.3,
@@ -81,7 +81,7 @@ trading_position_r2d2_config = dict(
                 start=0.95,
                 end=0.1,
                 decay=10000,
-            ), replay_buffer=dict(replay_buffer_size=1000000, )
+            ), replay_buffer=dict(replay_buffer_size=100000000, )
         ),
     ),
 )
