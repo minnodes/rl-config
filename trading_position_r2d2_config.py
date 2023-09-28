@@ -1,7 +1,7 @@
 from easydict import EasyDict
 
-collector_env_num = 3
-evaluator_env_num = 3
+collector_env_num = 5
+evaluator_env_num = 5
 trading_position_r2d2_config = dict(
     exp_name='trading_position_r2d2_seed0',
     env=dict(
@@ -11,7 +11,7 @@ trading_position_r2d2_config = dict(
 
         positions=[-2, -1, 0, 1, 2],
         # Prev number of kline will keep obs and LSTM NN will use it for choose the action of next step
-        windows=20,
+        windows=30,
         trading_fees=0.0001,
         borrow_interest_rate=0.0003/100,
         portfolio_initial_value=1000,
@@ -54,10 +54,10 @@ trading_position_r2d2_config = dict(
         discount_factor=0.97,
         nstep=5,
         burnin_step=2,
-        learn_unroll_len=20,
+        learn_unroll_len=30,
         model=dict(
             # window_size x obs features = 20 x 9 = 180 (This shape is used for RNN and input shape of Conv2d).
-            obs_shape=180,
+            obs_shape=270,
             action_shape=5,
             # Used for output of Linear layer.
             encoder_hidden_size_list=[1024, 1024, 1024]
@@ -71,7 +71,7 @@ trading_position_r2d2_config = dict(
         ),
         collect=dict(
             n_sample=64,
-            unroll_len= 2 + 20,
+            unroll_len= 2 + 30,
             env_num=collector_env_num,
         ),
         eval=dict(env_num=evaluator_env_num, evaluator=dict(eval_freq=1440, )),
