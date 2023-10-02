@@ -1,7 +1,7 @@
 from easydict import EasyDict
 
-collector_env_num = 5
-evaluator_env_num = 5
+collector_env_num = 3
+evaluator_env_num = 2
 trading_position_r2d2_config = dict(
     exp_name='trading_position_r2d2_seed0',
     env=dict(
@@ -11,12 +11,12 @@ trading_position_r2d2_config = dict(
 
         positions=[-2, -1, 0, 1, 2],
         # Prev number of kline will keep obs and LSTM NN will use it for choose the action of next step
-        windows=30,
+        windows=20,
         trading_fees=0.0001,
         borrow_interest_rate=0.0003/100,
         portfolio_initial_value=1000,
         initial_position='random',
-        start_date='2019-01-01',
+        start_date='2018-01-01',
         end_date='2023-08-10',
         train_range=0.7,
         test_range=0.3,
@@ -51,27 +51,27 @@ trading_position_r2d2_config = dict(
         cuda=True,
         priority=True,
         priority_IS_weight=False,
-        discount_factor=0.97,
-        nstep=5,
+        discount_factor=0.9,
+        nstep=10,
         burnin_step=2,
-        learn_unroll_len=30,
+        learn_unroll_len=20,
         model=dict(
             # window_size x obs features = 20 x 9 = 180 (This shape is used for RNN and input shape of Conv2d).
-            obs_shape=270,
+            obs_shape=140,
             action_shape=5,
             # Used for output of Linear layer.
-            encoder_hidden_size_list=[1024, 1024, 1024]
+            encoder_hidden_size_list=[512, 512, 512]
         ),
         learn=dict(
-            update_per_collect=5,
+            update_per_collect=3,
             batch_size=64,
-            learning_rate=3 * 2.5E-4,
+            learning_rate=0.00001,
             target_update_freq=500,
             iqn=True,
         ),
         collect=dict(
             n_sample=64,
-            unroll_len= 2 + 30,
+            unroll_len= 2 + 20,
             env_num=collector_env_num,
         ),
         eval=dict(env_num=evaluator_env_num, evaluator=dict(eval_freq=1440, )),
